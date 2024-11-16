@@ -6,7 +6,7 @@ function broadcast(text) {
 broadcast('Eaglercraft 1.13 client started.');
 
 let chosen_skin = 'Default Steve';
-let eagler_words = ['Eagler', 'Darv', 'Yigg', 'Deev', 'Vigg', 'Yeer'];
+let eagler_words = ['Eagler', 'Yee', 'Paste', 'Yump', 'Gup', 'Vigg', 'Yigg', 'Egg'];
 
 function generateUsername() {
     let username;
