@@ -280,6 +280,7 @@ function launchEaglercraft() {
             minecraft_photo.style.top = '100px';
             minecraft_photo.style.animation = 'fadeIn 2s forwards';
             minecraft_photo.style.transform = 'translate(-50%, -50%)'; 
+            minecraft_photo.style.userSelect = 'none';
             document.body.appendChild(minecraft_photo); 
 
             const java_photo = document.createElement('img');
@@ -290,6 +291,7 @@ function launchEaglercraft() {
             java_photo.style.top = '140px';
             java_photo.style.animation = 'fadeIn 2s forwards';
             java_photo.style.transform = 'translate(-40%, -60%)';
+            java_photo.style.userSelect = 'none';
             document.body.append(java_photo)
 
             eagwrite.expandContract(eagwrite.write(splashText, x=windowW/2, y=170, 'rgb(255, 255, 84)', '#383838', 3, 3, 1, 'none', -30), 1500, 'ease-in-out')
@@ -299,6 +301,7 @@ function launchEaglercraft() {
             eagwrite.write('created by AverageToothpasteEnjoyer', windowW-600, windowH-50, 'white', '#383838', 3);
             create_button('Singleplayer', 2, null, windowW/2-100, windowH/2-100, 20, 'gui-widgets-button', 'fadeIn 2s forwards');
             create_button('Multiplayer', 2, null, windowW/2-100, windowH/2-50, 30, 'gui-widgets-button', 'fadeIn 2s forwards');
+            create_button('', 2, null, windowW/2-260, windowH/2+20, 30, 'language-button', 'fadeIn 2s forwards');
         }
 
         panorama() {
