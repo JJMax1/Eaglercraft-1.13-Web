@@ -7,9 +7,18 @@ broadcast('Eaglercraft 1.13 client started.');
 
 let chosen_skin = 'Default Steve';
 let eagler_words = ['Eagler', 'Darv', 'Yigg', 'Deev', 'Vigg', 'Yeer'];
-let USERNAME = eagler_words[Math.floor(Math.random() * eagler_words.length)] + 
-               eagler_words[Math.floor(Math.random() * eagler_words.length)] + 
-               (Math.floor(Math.random() * 79) + 20);
+
+function generateUsername() {
+    let username;
+    do {
+        username = eagler_words[Math.floor(Math.random() * eagler_words.length)] + 
+                   eagler_words[Math.floor(Math.random() * eagler_words.length)] + 
+                   (Math.floor(Math.random() * 79) + 20);
+    } while (username.length > 10); 
+    return username;
+}
+
+let USERNAME = generateUsername();
 broadcast(`Username: ${USERNAME}`);
 
 const panoramaImages = [
@@ -207,6 +216,7 @@ function launchEaglercraft() {
         editprofile_frame.style.width = '250px';
         editprofile_frame.style.height = '400px';
         editprofile_frame.style.top = '200px';
+        editprofile_frame.style.zIndex = '-1';
         editprofile_frame.style.left = `${windowW / 2 - 150}px`;
         document.body.appendChild(editprofile_frame);
 
