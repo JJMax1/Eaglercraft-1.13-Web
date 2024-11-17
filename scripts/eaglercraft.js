@@ -207,17 +207,16 @@ function launchEaglercraft() {
         let edit_profile_text = eagwrite.write('Edit Profile', windowW / 2 - 140, 0, 'black', '#383838', 5);
 
         let done_button = create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 200);
-        let import_skin_button = create_button('Import Skin', 2, null, windowW / 2 - 100, windowH - 300, 40, state='gui-widgets-button-disabled');
 
-        let editprofile_frame = document.createElement('div');
+        let editprofile_frame = document.createElement('iframe');
+        editprofile_frame.src = 'skinview.html'
         editprofile_frame.style.position = 'absolute';
-        editprofile_frame.style.backgroundColor = 'rgb(0, 0, 21)';
         editprofile_frame.style.border = '2px solid yellow';
-        editprofile_frame.style.width = '250px';
-        editprofile_frame.style.height = '400px';
-        editprofile_frame.style.top = '200px';
+        editprofile_frame.style.width = '1000px';
+        editprofile_frame.style.height = '700px';
+        editprofile_frame.style.top = '0px';
         editprofile_frame.style.zIndex = '-1';
-        editprofile_frame.style.left = `${windowW / 2 - 150}px`;
+        editprofile_frame.style.left = `${windowW / 2 - 950}px`;
         document.body.appendChild(editprofile_frame);
 
         eagwrite.write('Choose a skin', 1150-back, 410, 'lime', '#383838', 3);
