@@ -1,5 +1,5 @@
-import {classElemEnable, classElemShow, showHDMode, hintConversion} from '/scripts/dom-util.js'
-import {isSteve} from '/scripts/conversions.js'
+import {classElemEnable, classElemShow, showHDMode, hintConversion} from './dom-util.js'
+import {isSteve} from './conversions.js'
 
 var skinViewer2D = document.getElementById("skin-viewer-2d");
 var skinViewers3D = Array.from(document.getElementsByClassName("skin-viewer-3d"));

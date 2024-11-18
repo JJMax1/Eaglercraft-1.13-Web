@@ -1,8 +1,8 @@
-import * as C from '/scripts/conversions.js';
-import {initImgUtil, loadFile2Img, saveImg2File, highlightRect} from '/scripts/img-util.js';
-import {addClassDiv, classElemShow, addListener} from '/scripts/dom-util.js';
-import {initViewerRotation} from '/scripts/viewer-rotation.js';
-import {initViewerResize} from '/scripts/2d-viewer-resize.js';
+import * as C from './conversions.js';
+import {initImgUtil, loadFile2Img, saveImg2File, highlightRect} from './img-util.js';
+import {addClassDiv, classElemShow, addListener} from './dom-util.js';
+import {initViewerRotation} from './viewer-rotation.js';
+import {initViewerResize} from './2d-viewer-resize.js';
 
 const DEBUG_MODE = false;
 
