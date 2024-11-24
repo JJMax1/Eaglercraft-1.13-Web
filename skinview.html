@@ -5,7 +5,17 @@
     <title>skinview</title>
     <!-- credits to 811 Alex for the skin viewer (I modified it)-->
     <link rel="stylesheet" type="text/css" href="skinviewstyle/styles.css">
-    <link rel="stylesheet" href="skinviewstyle/minecraft-skinviewer.css"> 
+    <link rel="stylesheet" href="skinviewstyle/minecraft-skinviewer.css">
+    <script>
+      const baseTag = document.createElement('base');
+      if (window.location.hostname != '127.0.0.1') {
+          baseTag.href = '/Eaglercraft-1.13-Web/';
+          console.log('not on live server')
+      } else {
+          baseTag.href = '/';
+      }
+      document.head.appendChild(baseTag);
+  </script>
   <body>
     <div id="content">
       <div id="container-left">
