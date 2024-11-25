@@ -111,9 +111,7 @@ function launchEaglercraft() {
     let audio = new AudioManager();
     audio.play('assets/sounds/music/menu/menu1.ogg');
 
-    let event_proxies = [];
-
-    function create_button(text='Button', size=2, onclick=null, x=100, y=100, text_tune=70, state='gui-widgets-button', animation='none') {
+    function create_button(text='Button', size=2, onclick=null, x=100, y=100, text_tune=70, state='gui-widgets-button', animation='none', zIndex=1) {
         let button_text; 
         y += 20;
         let text_x = x + 50;
@@ -134,6 +132,7 @@ function launchEaglercraft() {
     
         let button = document.createElement('button');
         button.className = state;
+        button.style.zIndex = zIndex;
         button.style.transform = `scale(${size})`;
         button.style.position = 'absolute';
         button.style.animation = animation;
@@ -197,9 +196,9 @@ function launchEaglercraft() {
 
     function edit_profile_page() {
         document.body.style.backgroundImage = `url('assets/eagler/bg/${Math.floor(Math.random() * 7) + 1}.png')`;
-        let edit_profile_text = eagwrite.write('Edit Profile', windowW / 2 - 140, 0, 'black', '#383838', 5);
+        eagwrite.write('Edit Profile', windowW / 2 - 140, 0, 'black', '#383838', 5);
 
-        let done_button = create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 200);
+        create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 200);
 
         let editprofile_frame = document.createElement('iframe');
         editprofile_frame.src = 'skinview.html'
@@ -460,9 +459,10 @@ function launchEaglercraft() {
                 '#383838', 
                 4, 3, 1, 
                 'none', 
-                0, 
-                '4'  
+                0,
             );
+
+            create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 100);
         }
     }    
 
