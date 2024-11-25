@@ -7,18 +7,18 @@ class EagWrite {
         this.current_write_data = null; 
     }
 
-    write(text = 'Insert Text', x = 0, y = 0, color = 'black', shadow_color = '#383838', size = 5, spacing = 3, square_adjust = 1, animation='none', rotation = 0) {
-        // Create a container div for the entire text
-        let container = document.createElement('div');
-        container.style.position = 'absolute';
-        container.style.left = `${x}px`;
-        container.style.top = `${y}px`;
-        container.style.transform = `rotate(${rotation}deg)`;
-        container.style.transformOrigin = 'left top';
-        document.body.appendChild(container);
+    write(text = 'Insert Text', x = 0, y = 0, color = 'black', shadow_color = '#383838', size = 5, spacing = 3, square_adjust = 1, animation='none', rotation = 0, zIndex='5', container = document.body) {
+        let textContainer = document.createElement('div');
+        textContainer.style.position = 'absolute';
+        textContainer.style.left = `${x}px`;
+        textContainer.style.top = `${y}px`;
+        textContainer.style.transform = `rotate(${rotation}deg)`;
+        textContainer.style.transformOrigin = 'left top';
+        textContainer.style.zIndex = zIndex; // Set zIndex for the container
+        container.appendChild(textContainer); // Append to the provided container
 
         this.square_adjust = square_adjust; 
-        let destroy_data = [container];
+        let destroy_data = [textContainer];
         let only_square_data = [];
         let all_data = [];
         this.extra_x = 0;
@@ -28,7 +28,7 @@ class EagWrite {
         let underline = false;
         let strikethrough = false;
         let glitch = false;
-    
+
         const colorCodes = {
             '&1': 'rgb(0, 0, 169)',
             '&2': 'rgb(0, 169, 0)',
@@ -46,14 +46,14 @@ class EagWrite {
             '&e': 'rgb(255, 255, 84)',
             '&f': 'rgb(255, 255, 255)'
         };
-    
+
         Object.keys(colorCodes).forEach(key => {
             if (this.text.includes(key)) {
                 this.text = this.text.replace(key, '');
                 color = colorCodes[key];
             }
         });
-    
+
         if (this.text.includes('&k')) {
             this.text = this.text.replace('&k', '');
             glitch = true;
@@ -74,10 +74,10 @@ class EagWrite {
             this.text = this.text.replace('&m', '');
             strikethrough = true;
         }
-    
+
         let total_width = 0;
         let max_height = 0;
-    
+
         for (let letter of this.text) {
             if (letter !== ' ') {
                 if (this.charmap[letter]) {
@@ -92,7 +92,7 @@ class EagWrite {
                 total_width += size * spacing;
             }
         }
-    
+
         const write_letter = (letter, x, y, color, size, shadow_color) => {
             let letter_pixel_width = 0;
             if (letter !== ' ') {
@@ -102,8 +102,9 @@ class EagWrite {
                         row.split('').forEach((char, col_index) => {
                             if (char === '#') {
                                 let y_offset = 0;
-    
+
                                 let shadow = document.createElement('div');
+                                shadow.style.zIndex = zIndex;
                                 shadow.style.width = `${size * this.square_adjust + bold}px`;
                                 shadow.style.height = `${size * this.square_adjust + bold}px`;
                                 shadow.style.backgroundColor = shadow_color;
@@ -112,9 +113,10 @@ class EagWrite {
                                 shadow.style.left = `${this.extra_x + col_index * size + size - italic_offset * row_index}px`;
                                 shadow.style.top = `${row_index * size + size + y_offset}px`;
                                 shadow.style.animation = animation;
-                                container.appendChild(shadow);
-    
+                                textContainer.appendChild(shadow);
+
                                 let square = document.createElement('div');
+                                square.style.zIndex = zIndex;
                                 square.style.width = `${size * this.square_adjust + bold}px`;
                                 square.style.height = `${size * this.square_adjust + bold}px`;
                                 square.style.backgroundColor = color;
@@ -123,19 +125,19 @@ class EagWrite {
                                 square.style.left = `${this.extra_x + col_index * size - italic_offset * row_index}px`;
                                 square.style.top = `${row_index * size + y_offset}px`;
                                 square.style.animation = animation;
-                                container.appendChild(square);
-    
+                                textContainer.appendChild(square);
+
                                 destroy_data.push(square);
                                 destroy_data.push(shadow);
                                 only_square_data.push([square, shadow]);
-    
+
                                 if (glitch) {
                                     const apply_glitch = () => {
                                         let random_y_offset = Math.floor(Math.random() * (2 * size)) - size;
                                         square.style.top = `${row_index * size + random_y_offset}px`;
                                         shadow.style.top = `${row_index * size + size + random_y_offset}px`;
                                     };
-    
+
                                     let interval = setInterval(apply_glitch, 0);
                                     this.glitch_intervals.push([interval, apply_glitch]);
                                 }
@@ -151,13 +153,14 @@ class EagWrite {
                 this.extra_x += size * spacing;
             }
         };
-    
+
         for (let letter of this.text) {
             write_letter(letter, x, y, color, size, shadow_color);
         }
-    
+
         if (underline) {
             let underline_div = document.createElement('div');
+            underline_div.style.zIndex = zIndex;
             underline_div.style.width = `${total_width - spacing}px`;
             underline_div.style.height = `${size / 2}px`;
             underline_div.style.backgroundColor = color;
@@ -165,12 +168,13 @@ class EagWrite {
             underline_div.style.position = 'absolute';
             underline_div.style.left = '0px';
             underline_div.style.top = `${max_height + size / 3}px`;
-            container.appendChild(underline_div);
+            textContainer.appendChild(underline_div);
             destroy_data.push(underline_div);
         }
 
         if (strikethrough) {
             let strikethrough_div = document.createElement('div');
+            strikethrough_div.style.zIndex = zIndex;
             strikethrough_div.style.width = `${total_width - spacing}px`;
             strikethrough_div.style.height = `${size / 3}px`;
             strikethrough_div.style.backgroundColor = color;
@@ -178,7 +182,7 @@ class EagWrite {
             strikethrough_div.style.position = 'absolute';
             strikethrough_div.style.left = '0px';
             strikethrough_div.style.top = `${max_height / 2}px`;
-            container.appendChild(strikethrough_div);
+            textContainer.appendChild(strikethrough_div);
             destroy_data.push(strikethrough_div);
         }
 
@@ -195,11 +199,11 @@ class EagWrite {
         }
     }
 
-    change_text(newText, x, y, color = 'black', shadow_color = '#383838', size = 5, spacing = 3, square_adjust = 1, animation='none', rotation = 0) {
+    change_text(newText, x, y, color = 'black', shadow_color = '#383838', size = 5, spacing = 3, square_adjust = 1, animation='none', rotation = 0, container = document.body) {
         if (this.current_write_data) {
             this.destroy(this.current_write_data);
         }
-        this.write(newText, x, y, color, shadow_color, size, spacing, square_adjust, animation, rotation); 
+        this.write(newText, x, y, color, shadow_color, size, spacing, square_adjust, animation, rotation, '5', container); 
     }
 
     destroy(data = null) {
@@ -211,14 +215,14 @@ class EagWrite {
                 return;
             }
         }
-    
+
         if (this.glitch_intervals) {
             this.glitch_intervals.forEach(interval => {
                 clearInterval(interval[0]);
             });
             this.glitch_intervals = [];
         }
-    
+
         if (Array.isArray(data)) {
             data[0].forEach(element => {
                 if (element && element.parentNode) {
@@ -233,12 +237,12 @@ class EagWrite {
             console.warn('No write data provided for expandContract animation.');
             return;
         }
-    
+
         const startSpacing = 1; 
         const maxSpacingChange = 0.4; 
         let startTime = null;
         let isExpanding = true;
-    
+
         data[1].forEach(([square, shadow]) => {
             square.originalLeft = parseFloat(square.style.left);
             square.originalTop = parseFloat(square.style.top);
@@ -249,29 +253,29 @@ class EagWrite {
             shadow.originalWidth = parseFloat(shadow.style.width);
             shadow.originalHeight = parseFloat(shadow.style.height);
         });
-    
+
         function animate(timestamp) {
             if (!startTime) startTime = timestamp;
             const elapsed = timestamp - startTime;
             const progress = Math.min(elapsed / duration, 1);
-    
+
             const spacingChange = isExpanding ? 
                 maxSpacingChange * easeInOut(progress) : 
                 maxSpacingChange - (maxSpacingChange * easeInOut(progress));
             const currentSpacing = startSpacing + spacingChange; 
-    
+
             data[1].forEach(([square, shadow]) => {
                 square.style.left = `${square.originalLeft * currentSpacing}px`;
                 square.style.top = `${square.originalTop * currentSpacing}px`;
                 shadow.style.left = `${shadow.originalLeft * currentSpacing}px`; 
                 shadow.style.top = `${shadow.originalTop * currentSpacing}px`;
-    
+
                 square.style.width = `${square.originalWidth * currentSpacing}px`;
                 square.style.height = `${square.originalHeight * currentSpacing}px`;
                 shadow.style.width = `${shadow.originalWidth * currentSpacing}px`;
                 shadow.style.height = `${shadow.originalHeight * currentSpacing}px`;
             });
-    
+
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
@@ -280,15 +284,13 @@ class EagWrite {
                 requestAnimationFrame(animate);
             }
         }
-    
+
         function easeInOut(t) {
             return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
         }
-    
+
         requestAnimationFrame(animate);
     }
-    
-
 }
 
 
