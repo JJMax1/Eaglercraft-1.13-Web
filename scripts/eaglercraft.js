@@ -116,7 +116,7 @@ function launchEaglercraft() {
     let audio = new AudioManager();
     audio.play('assets/sounds/music/menu/menu1.ogg');
 
-    function create_button(text='Button', size=2, onclick=null, x=100, y=100, text_tune=70, state='gui-widgets-button', animation='none', zIndex=1) {
+    function createButton(text='Button', size=2, onclick=null, x=100, y=100, text_tune=70, state='gui-widgets-button', animation='none', zIndex=1) {
         let button_text; 
         y += 20;
         let text_x = x + 50;
@@ -166,7 +166,7 @@ function launchEaglercraft() {
         return [button_text, button, destroy];
     }
 
-    function destroy_button(button_data) {
+    function destroyButton(button_data) {
         try {
             eagwrite.destroy(button_data[0]);
             button_data[1].remove();
@@ -176,7 +176,7 @@ function launchEaglercraft() {
         }
     }
 
-    function load_agreement() {
+    function loadAgreement() {
         if (is_agreement_loaded) return;
         is_agreement_loaded = true;
         document.body.style.backgroundImage = `url('assets/eagler/bg/${Math.floor(Math.random() * 7) + 1}.png')`;
@@ -192,18 +192,21 @@ function launchEaglercraft() {
             eagwrite.destroy(text2);
             eagwrite.destroy(text3);
             eagwrite.destroy(text4);
-            destroy_button(agreement_button);
-            edit_profile_page();
+            destroyButton(agreement_button);
+            editProfilePage();
         }
 
-        let agreement_button = create_button('Next', 2, agreement_profile_page, windowW / 2 - 100, windowH - 300);
+        let agreement_button = createButton('Next', 2, agreement_profile_page, windowW / 2 - 100, windowH - 300);
     }
 
-    function edit_profile_page() {
-        document.body.style.backgroundImage = `url('assets/eagler/bg/${Math.floor(Math.random() * 7) + 1}.png')`;
+    function editProfilePage() {
+        const randomImageIndex = Math.floor(Math.random() * 7) + 1;
+        document.body.style.backgroundImage = `url('assets/eagler/bg/${randomImageIndex}.png')`;
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundSize = 'cover';
         eagwrite.write('Edit Profile', windowW / 2 - 140, 0, 'black', '#383838', 5);
     
-        create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 200);
+        createButton('Done', 2, menu.openMenu.bind(menu), windowW / 2 - 100, windowH - 200);
     
         let editprofile_frame = document.createElement('iframe');
         editprofile_frame.src = 'skinview.html';
@@ -322,7 +325,7 @@ function launchEaglercraft() {
         input.focus();
     }
 
-    class Titlescreen {
+    class Menu {
         constructor() {
             this.scene = null;
             this.camera = null;
@@ -330,13 +333,13 @@ function launchEaglercraft() {
             this.animationId = null; 
         }
     
-        clear_start(_) {
+        clearStart(_) {
             document.body.innerHTML = '';
         }
     
-        open_titlescreen() {
+        openMenu() {
             let splashText = getRandomItem(splashTexts);
-            this.clear_start();
+            this.clearStart();
             this.panorama();
         
             const minecraft_photo = document.createElement('img');
@@ -365,11 +368,11 @@ function launchEaglercraft() {
         
             eagwrite.write('Eaglercraft 1.13 BETA', 0, windowH-50, 'white', '#383838', 3, 3, 1, 'fadeIn 2s forwards');
             eagwrite.write('created by AverageToothpasteEnjoyer', windowW-600, windowH-50, 'white', '#383838', 3);
-            create_button('Singleplayer', 2, null, windowW/2-100, windowH/2-100, 20, 'gui-widgets-button', 'fadeIn 2s forwards');
-            create_button('Multiplayer', 2, null, windowW/2-100, windowH/2-50, 30, 'gui-widgets-button', 'fadeIn 2s forwards');
-            create_button('', 2, this.languageOptions.bind(this), windowW/2-260, windowH/2+20, 30, 'language-button', 'fadeIn 2s forwards');
-            create_button('Options...', 2, null, windowW/2-152, windowH/2+20, -10, 'mini-button', 'fadeIn 2s forwards');
-            create_button('Edit Profile', 2, edit_profile_page, windowW/2+58, windowH/2+20, -30, 'mini-button', 'fadeIn 2s forwards');
+            createButton('Singleplayer', 2, null, windowW/2-100, windowH/2-100, 20, 'gui-widgets-button', 'fadeIn 2s forwards');
+            createButton('Multiplayer', 2, null, windowW/2-100, windowH/2-50, 30, 'gui-widgets-button', 'fadeIn 2s forwards');
+            createButton('', 2, this.languageOptions.bind(this), windowW/2-260, windowH/2+20, 30, 'language-button', 'fadeIn 2s forwards');
+            createButton('Options...', 2, this.options.bind(this), windowW/2-152, windowH/2+20, -10, 'mini-button', 'fadeIn 2s forwards');
+            createButton('Edit Profile', 2, this.openEditProfilePage.bind(this), windowW/2+58, windowH/2+20, -30, 'mini-button', 'fadeIn 2s forwards');
         }
     
         panorama() {
@@ -433,8 +436,13 @@ function launchEaglercraft() {
                 this.renderer.setSize(window.innerWidth, window.innerHeight);
             });
         }
+
+        openEditProfilePage() {
+            this.destroyMenu();
+            editProfilePage();
+        }
     
-        destroy_titlescreen() {
+        destroyMenu() {
             if (this.animationId) {
                 cancelAnimationFrame(this.animationId);
             }
@@ -456,11 +464,11 @@ function launchEaglercraft() {
                     }
                 });
             }
-            this.clear_start();
+            this.clearStart();
         }
     
         languageOptions() {
-            this.destroy_titlescreen();
+            this.destroyMenu();
             document.body.style.background = 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(assets/blocks/dirt.png)';
             document.body.style.backgroundRepeat = 'repeat';
             document.body.style.backgroundSize = '150px 150px';
@@ -505,6 +513,17 @@ function launchEaglercraft() {
             bottomOverlay.style.top = '0';
             bottomOverlay.style.left = '0';
             bottomOverlay.style.zIndex = '2';  
+
+            const langRectangle = document.createElement('div');
+            langRectangle.style.position = 'fixed';
+            langRectangle.style.top = '50%';
+            langRectangle.style.left = '50%';
+            langRectangle.style.width = '800px';
+            langRectangle.style.height = '70px';
+            langRectangle.style.border = '2px solid white';
+            langRectangle.style.backgroundColor = 'transparent';
+            langRectangle.style.transform = 'translate(-50%, -50%)';
+            document.body.appendChild(langRectangle);
         
             topImgDiv.appendChild(topOverlay);
             bottomImgDiv.appendChild(bottomOverlay);
@@ -522,11 +541,25 @@ function launchEaglercraft() {
                 0,
             );
 
-            create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 100);
+            eagwrite.write('English (US)', 
+                window.innerWidth / 2 - 80, 
+                window.innerHeight / 2 - 30, 
+                'white', 
+                '#383838', 
+                4, 3, 1, 
+                'none', 
+                0,
+            );
+
+            createButton('Done', 2, menu.openMenu.bind(menu), windowW / 2 - 100, windowH - 100);
+        }
+
+        options() {
+            this.destroyMenu();
         }
     }    
 
-    let titlescreen = new Titlescreen();
+    let menu = new Menu();
 
-    load_agreement();
+    loadAgreement();
 }
