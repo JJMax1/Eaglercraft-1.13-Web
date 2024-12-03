@@ -202,12 +202,12 @@ html.resizeEWCursorOverride > body, .resizeEWCursor{
   border: 1px dashed rgba(150, 150, 150, 0.4);
 }
 
-#skin-viewer-3d-steve *{
-  background-image: url("/assets/eagler/skins/default-steve.png");
+#skin-viewer-3d-steve * {
+  background-image: url("../assets/eagler/skins/default-steve.png");
 }
 
-#skin-viewer-3d-alex *{
-  background-image: url("/assets/eagler/skins/default-alex.png")
+#skin-viewer-3d-alex * {
+  background-image: url("../assets/eagler/skins/default-alex.png");
 }
 
 #container-3d-viewers{

@@ -6,7 +6,12 @@ function broadcast(text) {
 broadcast('Eaglercraft 1.13 client started.');
 
 let chosen_skin = 'Default Steve';
+let skin_type = 'steve';
 let eagler_words = ['Eagler', 'Yee', 'Paste', 'Yump', 'Gup', 'Vigg', 'Yigg', 'Egg'];
+
+localStorage.setItem('chosen_skin', chosen_skin)
+localStorage.setItem('skin_type', skin_type)
+
 
 function generateUsername() {
     let username;
@@ -197,11 +202,11 @@ function launchEaglercraft() {
     function edit_profile_page() {
         document.body.style.backgroundImage = `url('assets/eagler/bg/${Math.floor(Math.random() * 7) + 1}.png')`;
         eagwrite.write('Edit Profile', windowW / 2 - 140, 0, 'black', '#383838', 5);
-
+    
         create_button('Done', 2, titlescreen.open_titlescreen.bind(titlescreen), windowW / 2 - 100, windowH - 200);
-
+    
         let editprofile_frame = document.createElement('iframe');
-        editprofile_frame.src = 'skinview.html'
+        editprofile_frame.src = 'skinview.html';
         editprofile_frame.style.position = 'absolute';
         editprofile_frame.style.border = '2px solid yellow';
         editprofile_frame.style.width = '1000px';
@@ -211,26 +216,81 @@ function launchEaglercraft() {
         editprofile_frame.style.left = `${windowW / 2 - 950}px`;
         document.body.appendChild(editprofile_frame);
 
-        eagwrite.write('Choose a skin', 1150-back, 410, 'lime', '#383838', 3);
-        eagwrite.write('Enter a username', 1130-back, 210, 'lime', '#383838', 3);
-
-
+        editprofile_frame.onload = function() {
+            console.log("skinview iframe loaded and ready to receive messages");
+        };
+    
+        eagwrite.write('Choose a skin', 1150 - back, 410, 'lime', '#383838', 3);
+        eagwrite.write('Enter a username', 1130 - back, 210, 'lime', '#383838', 3);
+    
         let dropdown = document.createElement('button');
         dropdown.className = 'eagler-dropdown';
         dropdown.style.position = 'absolute';
         dropdown.style.top = '450px';
         dropdown.style.left = `${windowW / 2 + 150}px`;
         document.body.appendChild(dropdown);
+    
+        let skinSteveButton = document.createElement('button');
+        skinSteveButton.className = 'skin-button'; 
+        skinSteveButton.style.position = 'absolute';
+        skinSteveButton.style.top = '500px';
+        skinSteveButton.style.left = `${windowW / 2 + 150}px`;
+        skinSteveButton.style.display = 'none';
+        document.body.appendChild(skinSteveButton);
 
+        let skinAlexButton = document.createElement('button');
+        skinAlexButton.className = 'skin-button'; 
+        skinAlexButton.style.position = 'absolute';
+        skinAlexButton.style.top = '550px';
+        skinAlexButton.style.left = `${windowW / 2 + 150}px`;
+        skinAlexButton.style.display = 'none';
+        document.body.appendChild(skinAlexButton);
 
-        skin_choice_text = eagwrite.write(chosen_skin, 1140-back, 455, 'yellow', '#383838', 3);
+        let skinSteveText;
+        let skinAlexText;
+        let skin_choice_text = eagwrite.write(chosen_skin, 1140 - back, 455, 'yellow', '#383838', 3);
 
+        dropdown.addEventListener('click', function() {
+            if (skinSteveButton.style.display === 'none') {
+                skinSteveButton.style.display = 'block';
+                skinSteveText = eagwrite.write('Default Steve', 1140 - back, 505, 'yellow', '#383838', 3);
+                skinAlexButton.style.display = 'block';
+                skinAlexText = eagwrite.write('Default Alex', 1140 - back, 555, 'yellow', '#383838', 3);
+            } else {
+                skinSteveButton.style.display = 'none';
+                eagwrite.destroy(skinSteveText);
+                skinAlexButton.style.display = 'none';
+                eagwrite.destroy(skinAlexText);
+            }
+        });
+
+        skinSteveButton.addEventListener('click', function() {
+            chosen_skin = 'Default Steve';
+            skin_type = 'steve';
+            localStorage.setItem('chosen_skin', chosen_skin);
+            localStorage.setItem('skin_type', skin_type);
+            eagwrite.destroy(skin_choice_text);
+            skin_choice_text = eagwrite.write(chosen_skin, 1140 - back, 455, 'yellow', '#383838', 3);
+            editprofile_frame.contentWindow.postMessage('updateSkin', '*');
+        });
+    
+        skinAlexButton.addEventListener('click', function() {
+            chosen_skin = 'Default Alex';
+            skin_type = 'alex';
+            localStorage.setItem('chosen_skin', chosen_skin);
+            localStorage.setItem('skin_type', skin_type);
+            eagwrite.destroy(skin_choice_text);
+            skin_choice_text = eagwrite.write(chosen_skin, 1140 - back, 455, 'yellow', '#383838', 3);
+            editprofile_frame.contentWindow.postMessage('updateSkin', '*');
+        });
+    
+        
+    
         let initialUsername = USERNAME;
-
         const MAX_USERNAME_LENGTH = 10;
-
+    
         let usernameTextData = eagwrite.write(initialUsername, 1130 - back, 250, 'yellow', '#383838', 3);
-
+    
         let input = document.createElement('input');
         input.className = 'eagler-input';
         input.type = 'text';
@@ -242,23 +302,23 @@ function launchEaglercraft() {
         input.style.height = '30px';
         input.style.zIndex = '-1';
         document.body.appendChild(input);
-
+    
         function updateUsernameText() {
             if (usernameTextData) {
                 eagwrite.destroy(usernameTextData);
             }
-            
+    
             let newText = input.value.slice(0, MAX_USERNAME_LENGTH) || initialUsername;
             usernameTextData = eagwrite.write(newText, 1130 - back, 250, 'yellow', '#383838', 3);
         }
-
+    
         input.addEventListener('input', function() {
             if (input.value.length > MAX_USERNAME_LENGTH) {
                 input.value = input.value.slice(0, MAX_USERNAME_LENGTH);
             }
             updateUsernameText();
         });
-
+    
         input.focus();
     }
 
