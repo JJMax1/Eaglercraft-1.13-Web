@@ -29,11 +29,10 @@
 
 # Devs *[1 dev]*
 
-## AverageToothpasteEnjoyer 👑 **(Owner/Developer)**
-### <li>Likes drinking water out of the sink</li>
-### <li>Likes coding</li>
-### <li>Working on Eaglercraft 1.13</li>
+## JJMax1 👑 **(Owner/Developer)**
+### <li>Likes playing minecraft</li>
+### <li>Working on Eaglercraft 1.14.2</li>
 
 <hr>
 
-<i>yeeeeeeeee :></i>
+<i>yeeeeeeeeeah :></i>
