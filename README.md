@@ -1,30 +1,30 @@
 <div align='center'>
 
-# Play Minecraft 1.13 directly in your web browser
+# Play Minecraft 1.14.2 directly in your web browser
 
-### ⚠ ATTENTION DMCA PEOPLE TRYING TO HUNT ME DOWN: This website is a *reverse engineered version of Minecraft 1.13* not an actual copy ⚠
+### ⚠ ATTENTION DMCA PEOPLE TRYING TO HUNT ME DOWN: This website is a early indev of Eaglercraft 1.14.2
 
 # UNDER CONSTRUCTION
 
-# Eaglercraft Reverse 1.13
+# Eaglercraft 1.14.2
 
-## Created by AverageToothpasteEnjoyer
+## Created by JJMax1
 
-<img src="preview.png" alt="Preview Photo Not Found"/>
 
-# What is Eaglercraft Reverse?
 
-### Eaglercraft Reverse is a project dedicated to reverse engineering Minecraft versions with Javascript. This project was created because versions **1.13+** would be a living hell with preformance when running in a web browser, and Minecraft isn't really built to run in a web browser.
+# What is Eaglercraft?
+
+### Eaglercraft is a project dedicated to reverse engineering Minecraft versions with Javascript and html. This project was created because versions **1.13+** would be a living hell with preformance when running in a web browser, and Minecraft isn't really built to run in a web browser.
 
 # Progress
 
-## ***23% done*** (I just came up with this in my head)
+## ***25% done***
 
-## Release date prediction: ***May 25, 2025***
+## Release date prediction: ***May 25, 2026-2027***
 
-## Latest Update: **working on skins and menus**
+## Latest Update: **working on 1.14.2 features
 
-## When it started: **Early September 2024** (I was on vacation for a while)
+## When it started: **Early April 2025
 
 
 # Devs *[1 dev]*
