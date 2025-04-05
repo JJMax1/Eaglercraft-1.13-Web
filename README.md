@@ -2,7 +2,7 @@
 
 # Play Minecraft 1.14.2 directly in your web browser
 
-### ⚠ ATTENTION DMCA PEOPLE TRYING TO HUNT ME DOWN: This website is a early indev of Eaglercraft 1.14.2
+### ⚠  This html is a very early indev of Eaglercraft 1.14.2 and will have bugs to come
 
 # UNDER CONSTRUCTION
 
@@ -14,7 +14,7 @@
 
 # What is Eaglercraft?
 
-### Eaglercraft is a project dedicated to reverse engineering Minecraft versions with Javascript and html. This project was created because versions **1.13+** would be a living hell with preformance when running in a web browser, and Minecraft isn't really built to run in a web browser.
+### Eaglercraft is a project dedicated to engineering Minecraft versions with Javascript and html. This project was created because versions **1.13+** would be a living hell with preformance when running in a web browser, and Minecraft isn't really built to run in a web browser.
 
 # Progress
 
